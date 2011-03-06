@@ -363,6 +363,10 @@ public class GameEngine implements ClientCallback {
 		if (self.getMoney() < UnitInfo.getPricSpy())
 			throw new NotEnoughMoneyException();
 
+		if (mMapListModel.getTerritoryAt(territory).getOwner().equals(
+			session.getUser()))
+			throw new InvalidArgumentException();
+
 		final ArrayList<Spy> spyList = new ArrayList<Spy>();
 		spyList.addAll(self.getSpies());
 		spyList.add(new Spy(territory, 2));
