@@ -18,7 +18,7 @@ import com.umbrella.worldconq.domain.TerritoryDecorator;
 import com.umbrella.worldconq.domain.UnitInfo;
 import com.umbrella.worldconq.domain.UserManager;
 import com.umbrella.worldconq.exceptions.InvalidArgumentException;
-import com.umbrella.worldconq.exceptions.NotEnoughMoneyException;
+import com.umbrella.worldconq.exceptions.OutOfTurnException;
 import com.umbrella.worldconq.exceptions.PendingAttackException;
 import com.umbrella.worldconq.ui.GameEventListener;
 
@@ -650,6 +650,8 @@ public class GameEngineTest extends TestCase {
 			gameEngine.acceptAttack();
 			o = PrivateAccessor.getPrivateField(gameEngine, "mCurrentAttack");
 			assertNull(o);
+		} catch (final OutOfTurnException e) {
+			fail(e.toString());
 		} catch (final Exception e) {
 			fail(e.toString());
 		}
@@ -665,6 +667,8 @@ public class GameEngineTest extends TestCase {
 			//Aceptar el ataque
 			gameEngine.acceptAttack();
 			fail("Esperaba Exception");
+		} catch (final OutOfTurnException e) {
+			fail(e.toString());
 		} catch (final Exception e) {
 			System.out.println(e.toString() + " mCurrentAttack es null");
 		}
@@ -687,6 +691,8 @@ public class GameEngineTest extends TestCase {
 			gameEngine.requestNegotiation(0, 10);
 			o = PrivateAccessor.getPrivateField(gameEngine, "mCurrentAttack");
 			assertNull(o);
+		} catch (final OutOfTurnException e) {
+			fail(e.toString());
 		} catch (final InvalidArgumentException e) {
 			fail("InvalidArgumentException");
 		} catch (final Exception e) {
@@ -704,6 +710,8 @@ public class GameEngineTest extends TestCase {
 			//Pedir Negociacion
 			gameEngine.requestNegotiation(0, 10);
 			fail("Esperaba Exception");
+		} catch (final OutOfTurnException e) {
+			System.out.println("OutOfTurnException");
 		} catch (final InvalidArgumentException e) {
 			System.out.println("InvalidArgumentException");
 		} catch (final Exception e) {
@@ -725,6 +733,8 @@ public class GameEngineTest extends TestCase {
 			//Pedir Negociacion
 			gameEngine.requestNegotiation(-1, 0);
 			fail("Esperaba InvalidArgumentException");
+		} catch (final OutOfTurnException e) {
+			System.out.println("OutOfTurnException");
 		} catch (final InvalidArgumentException e) {
 			System.out.println("InvalidArgumentException dinero -1");
 		} catch (final Exception e) {
@@ -746,6 +756,8 @@ public class GameEngineTest extends TestCase {
 			//Pedir Negociacion
 			gameEngine.requestNegotiation(251, 0);
 			fail("Esperaba InvalidArgumentException");
+		} catch (final OutOfTurnException e) {
+			System.out.println("OutOfTurnException");
 		} catch (final InvalidArgumentException e) {
 			System.out.println("InvalidArgumentException dinero 250");
 		} catch (final Exception e) {
@@ -767,6 +779,8 @@ public class GameEngineTest extends TestCase {
 			//Pedir Negociacion
 			gameEngine.requestNegotiation(250, -1);
 			fail("Esperaba InvalidArgumentException");
+		} catch (final OutOfTurnException e) {
+			System.out.println("OutOfTurnException");
 		} catch (final InvalidArgumentException e) {
 			System.out.println("InvalidArgumentException soldados -1");
 		} catch (final Exception e) {
@@ -788,6 +802,8 @@ public class GameEngineTest extends TestCase {
 			//Pedir Negociacion
 			gameEngine.requestNegotiation(250, 11);
 			fail("Esperaba InvalidArgumentException");
+		} catch (final OutOfTurnException e) {
+			System.out.println("OutOfTurnException");
 		} catch (final InvalidArgumentException e) {
 			System.out.println("InvalidArgumentException soldados 11");
 		} catch (final Exception e) {

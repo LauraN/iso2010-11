@@ -98,22 +98,21 @@ public class CreateGameDialog extends JDialog {
 		turnTimeLabel.setHorizontalAlignment(JLabel.CENTER);
 		turnTimeLabel.setVerticalAlignment(JLabel.CENTER);
 
-		turnTimeSpinner = new JSpinner(new SpinnerNumberModel(0, 0, 999, 1));
-		//	turnTimeTextField.setToolTipText("Introduzca aqui tiempo del turno");
+		turnTimeSpinner = new JSpinner(new SpinnerNumberModel(60, 1, 999, 1));
 
 		defTimeLabel = new JLabel();
 		defTimeLabel.setText("Tiempo de defensa (segundos):");
 		defTimeLabel.setHorizontalAlignment(JLabel.CENTER);
 		defTimeLabel.setVerticalAlignment(JLabel.CENTER);
 
-		defTimeSpinner = new JSpinner(new SpinnerNumberModel(0, 0, 999, 1));
+		defTimeSpinner = new JSpinner(new SpinnerNumberModel(60, 1, 999, 1));
 
 		negTimeLabel = new JLabel();
 		negTimeLabel.setText("Tiempo de negociación (segundos):");
 		negTimeLabel.setHorizontalAlignment(JLabel.CENTER);
 		negTimeLabel.setVerticalAlignment(JLabel.CENTER);
 
-		negTimeSpinner = new JSpinner(new SpinnerNumberModel(0, 0, 999, 1));
+		negTimeSpinner = new JSpinner(new SpinnerNumberModel(60, 1, 999, 1));
 
 		createButton = new JButton("Crear partida");
 		createButton.addMouseListener(new CreateMouseAdapter(this, false));
@@ -304,7 +303,8 @@ public class CreateGameDialog extends JDialog {
 
 		@Override
 		public void mouseClicked(MouseEvent evt) {
-			if (dlg.getGameName() != "" && dlg.getGameName() != null
+			if (dlg.getGameName() != "" && dlg.getGameName() != null &&
+					!dlg.getGameName().isEmpty()
 					&& CreateGameDialog.this.getCalendarList().size() > 0) {
 				selection = true;
 				dlg.selection = selection;
