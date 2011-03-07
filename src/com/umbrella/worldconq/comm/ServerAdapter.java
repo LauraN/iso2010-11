@@ -175,6 +175,7 @@ public class ServerAdapter {
 
 	public void quitGame(Session session, Game game)
 			throws RemoteException, GameNotFoundException, InvalidSessionException, InvalidTimeException, NotCurrentPlayerGameException {
+
 		this.checkConnection();
 		try {
 			mProxy.quitGame(session.getId(), game.getGameInfo().getId());
@@ -211,6 +212,7 @@ public class ServerAdapter {
 		}
 	}
 
+
 	public void acceptAttack(Session session, Game game)
 			throws RemoteException, GameNotFoundException, InvalidSessionException, InvalidTimeException {
 		this.checkConnection();
@@ -222,6 +224,7 @@ public class ServerAdapter {
 		}
 	}
 
+
 	public void requestNegotiation(Session session, Game game, int money, int soldiers)
 			throws RemoteException, GameNotFoundException, InvalidSessionException, InvalidTimeException {
 		this.checkConnection();
@@ -232,6 +235,12 @@ public class ServerAdapter {
 			this.disconnect();
 			throw e;
 		}
+	}
+
+
+	public void endTurn(Session session, Game game) throws RemoteException, InvalidTimeException, InvalidSessionException {
+		this.checkConnection();
+		mProxy.endTurn(session.getId(), game.getGameInfo().getId());
 	}
 
 	public void updateGame(Session session, Game game, ArrayList<Player> playerUpdate, ArrayList<TerritoryDecorator> territoryUpdate, EventType event)
